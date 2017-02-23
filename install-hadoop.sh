@@ -21,18 +21,19 @@ systemctl restart sshd
 ###################################################################
 # Add new user for hadoop
 ###################################################################
+: '
 groupadd hadoop
 useradd -d /opt/hadoop -G hadoop hduser
 echo hduser:hadoop | chpasswd
+'
 
 
 ###################################################################
 # Extract hadoop to /opt/hadoop
 ###################################################################
 cd /root/postinstall/apps
-tar xzf hadoop-2.7.3.tar.gz
-mv hadoop-2.7.3/* /opt/hadoop/
-chown -R hduser:hadoop /opt/hadoop/
+tar xzf hadoop-2.7.3.tar.gz -C /opt/
+chown -R hduser:hadoop /opt/hadoop-2.7.3/
 
 
 ###################################################################
@@ -60,7 +61,7 @@ export PATH=\$PATH:\$JAVA_HOME/bin
 export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar
 
 ## HADOOP env variables
-export HADOOP_HOME=/opt/hadoop
+export HADOOP_HOME=/opt/hadoop-2.7.3
 export HADOOP_COMMON_HOME=\$HADOOP_HOME
 export HADOOP_HDFS_HOME=\$HADOOP_HOME
 export HADOOP_MAPRED_HOME=\$HADOOP_HOME
@@ -76,45 +77,46 @@ source .bash_profile
 # Generate key SSH
 ###################################################################
 ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
-sshpass -p hadoop /usr/bin/ssh-copy-id -o "StrictHostKeyChecking no" localhost
+cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
 
 
 ###################################################################
 # Configure Hadoop
 ###################################################################
 # Backup configuration file
-cp /opt/hadoop/etc/hadoop/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml.bak
-cp /opt/hadoop/etc/hadoop/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml.bak
-cp /opt/hadoop/etc/hadoop/mapred-site.xml.template /opt/hadoop/etc/hadoop/mapred-site.xml
-cp /opt/hadoop/etc/hadoop/yarn-site.xml /opt/hadoop/etc/hadoop/yarn-site.xml.bak
+cp /opt/hadoop-2.7.3/etc/hadoop/core-site.xml /opt/hadoop-2.7.3/etc/hadoop/core-site.xml.bak
+cp /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml.bak
+cp /opt/hadoop-2.7.3/etc/hadoop/mapred-site.xml.template /opt/hadoop-2.7.3/etc/hadoop/mapred-site.xml
+cp /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml.bak
 
 # Modify corn-site hadoop
-sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop/etc/hadoop/core-site.xml
-sed -i '/<\/configuration>/i \\t\t<name>fs.defaultFS<\/name>' /opt/hadoop/etc/hadoop/core-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>hdfs://localhost:9000/<\/value>' /opt/hadoop/etc/hadoop/core-site.xml
-sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop/etc/hadoop/core-site.xml
+sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop-2.7.3/etc/hadoop/core-site.xml
+sed -i '/<\/configuration>/i \\t\t<name>fs.defaultFS<\/name>' /opt/hadoop-2.7.3/etc/hadoop/core-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>hdfs://localhost:9000/<\/value>' /opt/hadoop-2.7.3/etc/hadoop/core-site.xml
+sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop-2.7.3/etc/hadoop/core-site.xml
 
 # Modify hdfs-site hadoop
-sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t\t<name>dfs.data.dir<\/name>' /opt/hadoop/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>file:///opt/volume/datanode<\/value>' /opt/hadoop/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t\t<name>dfs.name.dir<\/name>' /opt/hadoop/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>file:///opt/volume/namenode<\/value>' /opt/hadoop/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t\t<name>dfs.data.dir<\/name>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>file:///opt/volume/datanode<\/value>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t\t<name>dfs.name.dir<\/name>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>file:///opt/volume/namenode<\/value>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml
 
 # Modify mapred-site hadoop
-sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop/etc/hadoop/mapred-site.xml
-sed -i '/<\/configuration>/i \\t\t<name>mapreduce.framework.name<\/name>' /opt/hadoop/etc/hadoop/mapred-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>yarn<\/value>' /opt/hadoop/etc/hadoop/mapred-site.xml
-sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop/etc/hadoop/mapred-site.xml
+sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop-2.7.3/etc/hadoop/mapred-site.xml
+sed -i '/<\/configuration>/i \\t\t<name>mapreduce.framework.name<\/name>' /opt/hadoop-2.7.3/etc/hadoop/mapred-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>yarn<\/value>' /opt/hadoop-2.7.3/etc/hadoop/mapred-site.xml
+sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop-2.7.3/etc/hadoop/mapred-site.xml
 
 # Modify yarn-site hadoop
-sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop/etc/hadoop/yarn-site.xml
-sed -i '/<\/configuration>/i \\t\t<name>yarn.nodemanager.aux-services<\/name>' /opt/hadoop/etc/hadoop/yarn-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>mapreduce_shuffle<\/value>' /opt/hadoop/etc/hadoop/yarn-site.xml
-sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop/etc/hadoop/yarn-site.xml
+sed -i '/<\/configuration>/i \\t<property>' /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml
+sed -i '/<\/configuration>/i \\t\t<name>yarn.nodemanager.aux-services<\/name>' /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>mapreduce_shuffle<\/value>' /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml
+sed -i '/<\/configuration>/i \\t<\/property>' /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml
 
 ###################################################################
 # Format Hadoop Namenode

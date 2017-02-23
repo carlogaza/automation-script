@@ -1,39 +1,37 @@
 #!/bin/bash
 ###################################################################
-# Common Tools Installation Script
-# Tools : Oracle Java, sshpass
+# Pig Installation Script
+# Pig version : 0.16.0
 ###################################################################
 
 
 ###################################################################
-# Install sshpass
+# Extract pig to /opt/pig
 ###################################################################
-rpm -Uvh /root/postinstall/apps/sshpass-1.05-5.el7.x86_64.rpm
-
-
-###################################################################
-# Uninstall OpenJDK
-###################################################################
-yum -y remove java*
+cd /root/postinstall/apps
+tar xzf pig-0.16.0.tar.gz -C /opt/
+chown -R hduser:hadoop /opt/pig-0.16.0/
 
 
 ###################################################################
-# Install Oracle Java
+# ----------------- Entering to hadoop user --------------------- #
 ###################################################################
-rpm -Uvh /root/postinstall/apps/jdk-8u121-linux-x64.rpm
+su - hduser <<'EOF'
 
 
 ###################################################################
-# Disable SSH Host Key Checking on localhost 
+# Add environment variables
 ###################################################################
-cat <<EOT >>/etc/ssh/ssh_config
+cat <<EOT >> .bashrc
 
-Host localhost
-  StrictHostKeyChecking no
-
-Host 127.0.0.1
-  StrictHostKeyChecking no
-
-Host 0.0.0.0
-  StrictHostKeyChecking no
+## PIG env variables
+export PIG_INSTALL=/opt/pig-0.16.0
+export PATH=\$PATH:\$PIG_INSTALL/bin
 EOT
+
+source .bash_profile
+
+EOF
+###################################################################
+# ---------------- End of hadoop user command ------------------- #
+###################################################################
