@@ -1,12 +1,12 @@
 #!/bin/bash
 ###################################################################
-# Pig Installation Script
-# Pig version : 0.16.0
+# Hive Installation Script
+# Hive version : 2.1.1
 ###################################################################
 
 
 ###################################################################
-# Extract pig to /opt/pig
+# Extract hive to /opt/
 ###################################################################
 cd /root/postinstall/apps
 tar xzf apache-hive-2.1.1-bin.tar.gz -C /opt/
@@ -44,17 +44,20 @@ sed -i '/# Default to use 256MB/i \ ' /opt/apache-hive-2.1.1-bin/bin/hive-config
 ###################################################################
 # Create HDFS directory for Hive
 ###################################################################
+: '
 start-dfs.sh
 hadoop fs -mkdir -p /user/hive/warehouse
 hadoop fs -mkdir -p /tmp
 hadoop fs -chmod g+w /user/hive/warehouse
 hadoop fs -chmod g+w /tmp
-
+'
 
 ###################################################################
 # Initialization Apache Derby Database
 ###################################################################
+: '
 schematool -initSchema -dbType derby
+'
 
 
 EOF
