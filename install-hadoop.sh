@@ -55,11 +55,6 @@ su - hduser <<'EOF'
 ###################################################################
 cat <<EOT >> .bashrc
 
-## JAVA env variables
-export JAVA_HOME=/usr/java/default
-export PATH=\$PATH:\$JAVA_HOME/bin
-export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar
-
 ## HADOOP env variables
 export HADOOP_HOME=/opt/hadoop-2.7.3
 export HADOOP_COMMON_HOME=\$HADOOP_HOME
@@ -68,17 +63,10 @@ export HADOOP_MAPRED_HOME=\$HADOOP_HOME
 export HADOOP_YARN_HOME=\$HADOOP_HOME
 export HADOOP_OPTS="-Djava.library.path=\$HADOOP_HOME/lib/native"
 export HADOOP_COMMON_LIB_NATIVE_DIR=\$HADOOP_HOME/lib/native
-export PATH=\$PATH:\$HADOOP_HOME/sbin:\$HADOOP_HOME/bin
+export PATH=\$HADOOP_HOME/sbin:\$HADOOP_HOME/bin:\$PATH
 EOT
 
-source .bash_profile
-
-###################################################################
-# Generate key SSH
-###################################################################
-ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
-cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
+source .bashrc
 
 
 ###################################################################

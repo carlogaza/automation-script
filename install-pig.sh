@@ -26,10 +26,10 @@ cat <<EOT >> .bashrc
 
 ## PIG env variables
 export PIG_INSTALL=/opt/pig-0.16.0
-export PATH=\$PATH:\$PIG_INSTALL/bin
+export PATH=\$PIG_INSTALL/bin:\$PATH
 EOT
 
-source .bash_profile
+source .bashrc
 
 EOF
 ###################################################################

@@ -26,10 +26,10 @@ cat <<EOT >> .bashrc
 
 ## HIVE env variables
 export HIVE_HOME=/opt/apache-hive-2.1.1-bin
-export PATH=\$PATH:\$HIVE_HOME/bin
+export PATH=\$HIVE_HOME/bin:\$PATH
 EOT
 
-source .bash_profile
+source .bashrc
 
 
 ###################################################################

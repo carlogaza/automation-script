@@ -28,10 +28,10 @@ cat <<EOT >> .bashrc
 
 ## HBASE env variables
 export HBASE_HOME=/opt/hbase-1.2.4/
-export PATH=\$PATH:\$HBASE_HOME/bin
+export PATH=\$HBASE_HOME/bin:\$PATH
 EOT
 
-source .bash_profile
+source .bashrc
 
 
 ###################################################################

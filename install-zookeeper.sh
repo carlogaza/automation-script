@@ -40,10 +40,10 @@ cat <<EOT >> .bashrc
 
 ## ZOOKEEPER env variables
 export ZOOKEEPER_HOME=/opt/zookeeper-3.4.9
-export PATH=\$PATH:\$ZOOKEEPER_HOME/bin
+export PATH=\$ZOOKEEPER_HOME/bin:\$PATH
 EOT
 
-source .bash_profile
+source .bashrc
 
 EOF
 ###################################################################

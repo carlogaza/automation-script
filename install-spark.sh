@@ -35,14 +35,14 @@ cat <<EOT >> .bashrc
 
 ## SCALA env variables
 export SCALA_HOME=/opt/scala-2.12.1/
-export PATH=\$PATH:\$SCALA_HOME/bin
+export PATH=\$SCALA_HOME/bin:\$PATH
 
 ## SPARK env variables
 export SPARK_HOME=/opt/scala-2.12.1/
-export PATH=\$PATH:\$SPARK_HOME/bin:\$SPARK_HOME/sbin
+export PATH=\$SPARK_HOME/bin:\$SPARK_HOME/sbin:\$PATH
 EOT
 
-source .bash_profile
+source .bashrc
 
 
 ###################################################################
