@@ -38,7 +38,7 @@ export SCALA_HOME=/opt/scala-2.12.1/
 export PATH=\$SCALA_HOME/bin:\$PATH
 
 ## SPARK env variables
-export SPARK_HOME=/opt/scala-2.12.1/
+export SPARK_HOME=/opt/spark-2.1.0-bin-hadoop2.7/
 export PATH=\$SPARK_HOME/bin:\$SPARK_HOME/sbin:\$PATH
 EOT
 
@@ -49,8 +49,8 @@ source .bashrc
 # Configure Spark
 ###################################################################
 # Create configuration file
-cp /opt/spark-2.1.0-bin-hadoop2.7/spark-env.sh.template /opt/spark-2.1.0-bin-hadoop2.7/spark-env.sh
-cp /opt/spark-2.1.0-bin-hadoop2.7/spark-defaults.conf.template /opt/spark-2.1.0-bin-hadoop2.7/spark-defaults.conf
+cp /opt/spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh.template /opt/spark-2.1.0-bin-hadoop2.7/conf/spark-env.sh
+cp /opt/spark-2.1.0-bin-hadoop2.7/conf/spark-defaults.conf.template /opt/spark-2.1.0-bin-hadoop2.7/conf/spark-defaults.conf
 
 EOF
 ###################################################################

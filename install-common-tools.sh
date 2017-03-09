@@ -74,6 +74,7 @@ chown hduser:hadoop /home/hduser/init-first-boot.sh
 ###################################################################
 cd /root/postinstall/apps
 tar xzf apache-maven-3.3.9-bin.tar.gz -C /opt/
+chown -R hduser:hadoop /opt/apache-maven-3.3.9/
 
 su - hduser <<'EOF'
 cat <<EOT >> .bashrc
