@@ -6,11 +6,16 @@
 
 
 ###################################################################
+# Read environtment variables
+###################################################################
+source /opt/install-env.sh
+
+
+###################################################################
 # Extract pig to /opt/pig
 ###################################################################
-cd /root/postinstall/apps
-tar xzf pig-0.16.0.tar.gz -C /opt/
-chown -R hduser:hadoop /opt/pig-0.16.0/
+tar xzf $PIG_INS -C $INSTALLATION_DIR
+chown -R hduser:hadoop $PIG_DIR
 
 
 ###################################################################
@@ -20,12 +25,18 @@ su - hduser <<'EOF'
 
 
 ###################################################################
+# Read environtment variables
+###################################################################
+source /opt/install-env.sh
+
+
+###################################################################
 # Add environment variables
 ###################################################################
 cat <<EOT >> .bashrc
 
 ## PIG env variables
-export PIG_INSTALL=/opt/pig-0.16.0
+export PIG_INSTALL=$PIG_DIR
 export PATH=\$PIG_INSTALL/bin:\$PATH
 EOT
 

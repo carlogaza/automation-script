@@ -1,14 +1,26 @@
 #!/bin/bash
+###################################################################
 # MPI Installation Script
 # Version : 3.2
+###################################################################
 
+
+###################################################################
+# Read environtment variables
+###################################################################
+source /opt/install-env.sh
+
+
+###################################################################
 # Extract MPICH-3.2 to /usr/local/
-tar xzf /root/postinstall/apps/mpich-3.2.tar.gz -C /usr/local/
+###################################################################
+tar xzf $MPICH_INS -C $MPICH_INSTALLATION_DIR
 
-# Change folder to MPICH folder
-cd /usr/local/mpich-3.2/
 
-# Compile MPICH
+###################################################################
+# Compile and install MPICH
+###################################################################
+cd $MPICH_DIR
 ./configure
 make
 make install

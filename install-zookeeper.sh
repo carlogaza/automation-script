@@ -6,25 +6,30 @@
 
 
 ###################################################################
+# Read environtment variables
+###################################################################
+source /opt/install-env.sh
+
+
+###################################################################
 # Extract zookeeper to /opt/zookeeper
 ###################################################################
-cd /root/postinstall/apps
-tar xzf zookeeper-3.4.9.tar.gz -C /opt/
+tar xzf $ZOOKEEPER_INS -C $INSTALLATION_DIR
 
 
 ###################################################################
 # Configure ZooKeeper
 ###################################################################
-mkdir /opt/zookeeper-data
-cat <<EOT >> /opt/zookeeper-3.4.9/conf/zoo.cfg
+mkdir -p $ZOOKEEPER_DATA
+cat <<EOT >> $ZOOKEEPER_DIR/conf/zoo.cfg
 tickTime = 2000
-dataDir = /opt/zookeeper-data
+dataDir = $ZOOKEEPER_DATA
 clientPort = 2181
 initLimit = 5
 syncLimit = 2
 EOT
-chown -R hduser:hadoop /opt/zookeeper-3.4.9/
-chown -R hduser:hadoop /opt/zookeeper-data/
+chown -R hduser:hadoop $ZOOKEEPER_DIR
+chown -R hduser:hadoop $ZOOKEEPER_DATA
 
 
 ###################################################################
@@ -34,12 +39,18 @@ su - hduser <<'EOF'
 
 
 ###################################################################
+# Read environtment variables
+###################################################################
+source /opt/install-env.sh
+
+
+###################################################################
 # Add environment variables
 ###################################################################
 cat <<EOT >> .bashrc
 
 ## ZOOKEEPER env variables
-export ZOOKEEPER_HOME=/opt/zookeeper-3.4.9
+export ZOOKEEPER_HOME=$ZOOKEEPER_DIR
 export PATH=\$ZOOKEEPER_HOME/bin:\$PATH
 EOT
 

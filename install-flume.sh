@@ -6,21 +6,26 @@
 
 
 ###################################################################
+# Read environtment variables
+###################################################################
+source /opt/install-env.sh
+
+
+###################################################################
 # Extract flume to /opt/flume
 ###################################################################
-cd /root/postinstall/apps
-tar xzf apache-flume-1.7.0-bin.tar.gz -C /opt/
+tar xzf $FLUME_INS -C $INSTALLATION_DIR
 
 
 ###################################################################
 # Configure Flume
 ###################################################################
-cp /opt/apache-flume-1.7.0-bin/conf/flume-env.sh.template /opt/apache-flume-1.7.0-bin/conf/flume-env.sh
-cp /opt/apache-flume-1.7.0-bin/conf/flume-conf.properties.template /opt/apache-flume-1.7.0-bin/conf/flume-conf.properties
-sed -i '/export JAVA_HOME=/a export JAVA_HOME=/usr/java/default' /opt/apache-flume-1.7.0-bin/conf/flume-env.sh
-cp /root/postinstall/apps/libs/flume-sources-1.0-SNAPSHOT.jar /opt/apache-flume-1.7.0-bin/lib
-cp /root/postinstall/apps/appconfig/flume-twitter.conf /opt/apache-flume-1.7.0-bin/conf
-chown -R hduser:hadoop /opt/apache-flume-1.7.0-bin/
+cp $FLUME_DIR/conf/flume-env.sh.template $FLUME_DIR/conf/flume-env.sh
+cp $FLUME_DIR/conf/flume-conf.properties.template $FLUME_DIR/conf/flume-conf.properties
+sed -i '/export JAVA_HOME=/a export JAVA_HOME=$JAVA_DIR' $FLUME_DIR/conf/flume-env.sh
+cp $INSTALLER_DIR/libs/flume-sources-1.0-SNAPSHOT.jar $FLUME_DIR/lib
+cp $INSTALLER_DIR/appconfig/flume-twitter.conf $FLUME_DIR/conf
+chown -R hduser:hadoop $FLUME_DIR
 
 
 ###################################################################
@@ -30,12 +35,18 @@ su - hduser <<'EOF'
 
 
 ###################################################################
+# Read environtment variables
+###################################################################
+source /opt/install-env.sh
+
+
+###################################################################
 # Add environment variables
 ###################################################################
 cat <<EOT >> .bashrc
 
 ## FLUME env variables
-export FLUME_HOME=/opt/apache-flume-1.7.0-bin
+export FLUME_HOME=$FLUME_DIR
 export PATH=\$FLUME_HOME/bin:\$PATH
 export CLASSPATH=\$FLUME_HOME/lib/*:\$CLASSPATH
 EOT

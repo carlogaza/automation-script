@@ -1,8 +1,7 @@
 #!/bin/bash
 ###################################################################
-# Spark Installation Script
-# Spark version : 2.1.0
-# Scala version : 2.12.1
+# Zeppelin Installation Script
+# Zeppelin version : 0.7.0
 ###################################################################
 
 
@@ -13,17 +12,17 @@ source /opt/install-env.sh
 
 
 ###################################################################
-# Extract scala to /opt/scala
+# Extract zeppelin to /opt/zeppelin
 ###################################################################
-tar xzf $SCALA_INS -C $INSTALLATION_DIR
-chown -R hduser:hadoop $SCALA_DIR
+tar xzf $ZEPPELIN_INS -C $INSTALLATION_DIR
 
 
 ###################################################################
-# Extract spark to /opt/spark
+# Configure Zeppelin
 ###################################################################
-tar xzf $SPARK_INS -C $INSTALLATION_DIR
-chown -R hduser:hadoop $SPARK_DIR
+cp $ZEPPELIN_DIR/conf/zeppelin-env.sh.template $ZEPPELIN_DIR/conf/zeppelin-env.sh
+cp $ZEPPELIN_DIR/conf/zeppelin-site.xml.template $ZEPPELIN_DIR/conf/zeppelin-site.xml
+chown -R hduser:hadoop $ZEPPELIN_DIR
 
 
 ###################################################################
@@ -43,27 +42,14 @@ source /opt/install-env.sh
 ###################################################################
 cat <<EOT >> .bashrc
 
-## SCALA env variables
-export SCALA_HOME=$SCALA_DIR
-export PATH=\$SCALA_HOME/bin:\$PATH
-
-## SPARK env variables
-export SPARK_HOME=$SPARK_DIR
-export PATH=\$SPARK_HOME/bin:\$SPARK_HOME/sbin:\$PATH
+## ZEPPELIN env variables
+export ZEPPELIN_HOME=$ZEPPELIN_DIR
+export PATH=\$ZEPPELIN_HOME/bin:\$PATH
 EOT
 
 source .bashrc
-
-
-###################################################################
-# Configure Spark
-###################################################################
-# Create configuration file
-cp $SPARK_DIR/conf/spark-env.sh.template $SPARK_DIR/conf/spark-env.sh
-cp $SPARK_DIR/conf/spark-defaults.conf.template $SPARK_DIR/conf/spark-defaults.conf
 
 EOF
 ###################################################################
 # ---------------- End of hadoop user command ------------------- #
 ###################################################################
-

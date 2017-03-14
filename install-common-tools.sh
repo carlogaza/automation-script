@@ -6,9 +6,17 @@
 
 
 ###################################################################
+# Copy environtment variable to opt and give access to all user
+###################################################################
+cp /root/postinstall/script/install-env.sh /opt/
+chmod 777 /opt/install-env.sh
+source /opt/install-env.sh
+
+
+###################################################################
 # Install sshpass
 ###################################################################
-rpm -Uvh /root/postinstall/apps/sshpass-1.05-5.el7.x86_64.rpm
+rpm -Uvh $INSTALLER_DIR/sshpass-1.05-5.el7.x86_64.rpm
 
 
 ###################################################################
@@ -46,13 +54,14 @@ yum -y remove java*
 ###################################################################
 # Install Oracle Java
 ###################################################################
-rpm -Uvh /root/postinstall/apps/jdk-8u121-linux-x64.rpm
+rpm -Uvh $INSTALLER_DIR/jdk-8u121-linux-x64.rpm
 
 su - hduser <<'EOF'
+source /opt/install-env.sh
 cat <<EOT >> .bashrc
 
 ## JAVA env variables
-export JAVA_HOME=/usr/java/default
+export JAVA_HOME=$JAVA_DIR
 export PATH=\$JAVA_HOME/bin:\$PATH
 export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar
 EOT
@@ -72,15 +81,15 @@ chown hduser:hadoop /home/hduser/init-first-boot.sh
 ###################################################################
 # Install Apache Maven
 ###################################################################
-cd /root/postinstall/apps
-tar xzf apache-maven-3.3.9-bin.tar.gz -C /opt/
-chown -R hduser:hadoop /opt/apache-maven-3.3.9/
+tar xzf $MAVEN_INS -C $INSTALLATION_DIR/
+chown -R hduser:hadoop $MAVEN_DIR
 
 su - hduser <<'EOF'
+source /opt/install-env.sh
 cat <<EOT >> .bashrc
 
 ## MAVEN env variables
-export M2_HOME=/opt/apache-maven-3.3.9
+export M2_HOME=$MAVEN_DIR
 export PATH=\$M2_HOME/bin:\$PATH
 EOT
 
