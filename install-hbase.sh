@@ -79,7 +79,7 @@ sed -i '/<\/configuration>/i \\t\t<value>2181<\/value>' $HBASE_DIR/conf/hbase-si
 sed -i '/<\/configuration>/i \\t<\/property>' $HBASE_DIR/conf/hbase-site.xml
 
 # Modify hbase-env.sh
-sed -i '/export JAVA_HOME=/a export JAVA_HOME=$JAVA_DIR' $HBASE_DIR/conf/hbase-env.sh
+sed -i '/export JAVA_HOME=/a export JAVA_HOME='$JAVA_DIR $HBASE_DIR/conf/hbase-env.sh
 sed -i '/export HBASE_MANAGES_ZK=/a export HBASE_MANAGES_ZK=true' $HBASE_DIR/conf/hbase-env.sh
 
 EOF
