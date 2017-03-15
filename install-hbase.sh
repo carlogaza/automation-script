@@ -55,7 +55,7 @@ cp $HBASE_DIR/conf/hbase-env.sh $HBASE_DIR/conf/hbase-env.sh.bak
 # Modify hbase-site.xml
 sed -i '/<\/configuration>/i \\t<property>' $HBASE_DIR/conf/hbase-site.xml
 sed -i '/<\/configuration>/i \\t\t<name>hbase.rootdir<\/name>' $HBASE_DIR/conf/hbase-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>$HBASE_DATA<\/value>' $HBASE_DIR/conf/hbase-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>'$HBASE_DATA'<\/value>' $HBASE_DIR/conf/hbase-site.xml
 sed -i '/<\/configuration>/i \\t<\/property>' $HBASE_DIR/conf/hbase-site.xml
 
 sed -i '/<\/configuration>/i \\t<property>' $HBASE_DIR/conf/hbase-site.xml
@@ -70,7 +70,7 @@ sed -i '/<\/configuration>/i \\t<\/property>' $HBASE_DIR/conf/hbase-site.xml
 
 sed -i '/<\/configuration>/i \\t<property>' $HBASE_DIR/conf/hbase-site.xml
 sed -i '/<\/configuration>/i \\t\t<name>hbase.zookeeper.property.dataDir<\/name>' $HBASE_DIR/conf/hbase-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>$HBASE_DATA/zookeeper<\/value>' $HBASE_DIR/conf/hbase-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>'$HBASE_DATA'/zookeeper<\/value>' $HBASE_DIR/conf/hbase-site.xml
 sed -i '/<\/configuration>/i \\t<\/property>' $HBASE_DIR/conf/hbase-site.xml
 
 sed -i '/<\/configuration>/i \\t<property>' $HBASE_DIR/conf/hbase-site.xml

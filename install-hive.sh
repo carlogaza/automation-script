@@ -48,7 +48,7 @@ source .bashrc
 ###################################################################
 sed -i '/# Default to use 256MB/i \ ' $HIVE_DIR/bin/hive-config.sh
 sed -i '/# Default to use 256MB/i # HADOOP directory' $HIVE_DIR/bin/hive-config.sh
-sed -i '/# Default to use 256MB/i export HADOOP_HOME=$HADOOP_DIR' $HIVE_DIR/bin/hive-config.sh
+sed -i '/# Default to use 256MB/i export HADOOP_HOME='$HADOOP_DIR $HIVE_DIR/bin/hive-config.sh
 sed -i '/# Default to use 256MB/i \ ' $HIVE_DIR/bin/hive-config.sh
 
 

@@ -22,7 +22,7 @@ tar xzf $FLUME_INS -C $INSTALLATION_DIR
 ###################################################################
 cp $FLUME_DIR/conf/flume-env.sh.template $FLUME_DIR/conf/flume-env.sh
 cp $FLUME_DIR/conf/flume-conf.properties.template $FLUME_DIR/conf/flume-conf.properties
-sed -i '/export JAVA_HOME=/a export JAVA_HOME=$JAVA_DIR' $FLUME_DIR/conf/flume-env.sh
+sed -i '/export JAVA_HOME=/a export JAVA_HOME='$JAVA_DIR $FLUME_DIR/conf/flume-env.sh
 cp $INSTALLER_DIR/libs/flume-sources-1.0-SNAPSHOT.jar $FLUME_DIR/lib
 cp $INSTALLER_DIR/appconfig/flume-twitter.conf $FLUME_DIR/conf
 chown -R hduser:hadoop $FLUME_DIR

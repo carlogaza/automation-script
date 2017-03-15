@@ -100,11 +100,11 @@ sed -i '/<\/configuration>/i \\t<\/property>' $HADOOP_DIR/etc/hadoop/core-site.x
 # Modify hdfs-site hadoop
 sed -i '/<\/configuration>/i \\t<property>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
 sed -i '/<\/configuration>/i \\t\t<name>dfs.data.dir<\/name>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>file:///opt/volume/datanode<\/value>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>file://'$DATANODE_DIR'<\/value>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
 sed -i '/<\/configuration>/i \\t<\/property>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
 sed -i '/<\/configuration>/i \\t<property>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
 sed -i '/<\/configuration>/i \\t\t<name>dfs.name.dir<\/name>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
-sed -i '/<\/configuration>/i \\t\t<value>file:///opt/volume/namenode<\/value>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
+sed -i '/<\/configuration>/i \\t\t<value>file://'$NAMENODE_DIR'<\/value>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
 sed -i '/<\/configuration>/i \\t<\/property>' $HADOOP_DIR/etc/hadoop/hdfs-site.xml
 
 # Modify mapred-site hadoop
