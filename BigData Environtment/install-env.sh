@@ -19,7 +19,7 @@ HBASE_INS=$INSTALLER_DIR/hbase-1.2.4-bin.tar.gz
 FLUME_INS=$INSTALLER_DIR/apache-flume-1.7.0-bin.tar.gz
 SCALA_INS=$INSTALLER_DIR/scala-2.12.1.tgz
 SPARK_INS=$INSTALLER_DIR/spark-2.1.0-bin-hadoop2.7.tgz
-ZEPPELIN_INS=$INSTALLER_DIR/zeppelin-0.7.0-bin-all.tgz
+#ZEPPELIN_INS=$INSTALLER_DIR/zeppelin-0.7.0-bin-all.tgz
 
 
 ###################################################################
@@ -38,7 +38,7 @@ HBASE_DIR=$INSTALLATION_DIR/hbase-1.2.4/
 FLUME_DIR=$INSTALLATION_DIR/apache-flume-1.7.0-bin/
 SCALA_DIR=$INSTALLATION_DIR/scala-2.12.1/
 SPARK_DIR=$INSTALLATION_DIR/spark-2.1.0-bin-hadoop2.7/
-ZEPPELIN_DIR=$INSTALLATION_DIR/zeppelin-0.7.0-bin-all/
+#ZEPPELIN_DIR=$INSTALLATION_DIR/zeppelin-0.7.0-bin-all/
 
 
 ###################################################################
@@ -46,6 +46,7 @@ ZEPPELIN_DIR=$INSTALLATION_DIR/zeppelin-0.7.0-bin-all/
 ###################################################################
 NAMENODE_DIR=/opt/volume/namenode
 DATANODE_DIR=/opt/volume/datanode
+HIVE_METASTORE_DIR=/opt/volume/metastore_db
 HBASE_DATA=/opt/volume/hbase-data
 ZOOKEEPER_DATA=/opt/volume/zookeper-data
 
